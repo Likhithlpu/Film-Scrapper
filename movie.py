@@ -2,7 +2,9 @@
 import requests 
 import xlsxwriter 
 # api-endpoint 
-name=input("Enter Name Of Movie")
+name=input("Enter Name Of Movie: ")
+results= int(input("How many Movie Results you need:"))
+tempnum= int(results+2)
 link = "https://api.themoviedb.org/3/search/movie?api_key=1dcf69b9b95240032c80e5d374ca2bee&language=en-US&query="+name
 
 movie_name=[]
@@ -12,7 +14,7 @@ movie_release=[]
 r = requests.get(url = link) 
 data = r.json() 
 results=data['total_results']
-for i in range(0,5):
+for i in range(0,tempnum):
     movie_name.append(data['results'][i]['original_title'])
     movie_release.append(data['results'][i]['release_date'])
     movie_overview.append(data['results'][i]['overview'])
@@ -22,7 +24,7 @@ worksheet = workbook.add_worksheet()
 worksheet.write('A1', 'Movie Name') 
 worksheet.write('B1', 'Movie Release Date') 
 worksheet.write('C1', 'Movie Description') 
-for i in range(2,5):
+for i in range(2,tempnum):
     wb='A'+str(i)
     wbb='B'+str(i)
     wbbb='C'+str(i)
